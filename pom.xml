@@ -60,7 +60,7 @@
 	</dependencies>
 
 	<build>
-		<finalName></finalName>
+		<finalName>alfresco-base64</finalName>
 
 		<plugins>
 			<plugin>
