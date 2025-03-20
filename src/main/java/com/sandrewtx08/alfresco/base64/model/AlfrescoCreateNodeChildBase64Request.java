@@ -1,7 +1,6 @@
 package com.sandrewtx08.alfresco.base64.model;
 
-import javax.validation.constraints.NotBlank;
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
