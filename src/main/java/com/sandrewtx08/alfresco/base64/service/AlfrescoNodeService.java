@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sandrewtx08.alfresco.base64.AlfrescoConfig;
-import com.sandrewtx08.alfresco.base64.model.AlfrescoCreateNodeChildRequest;
+import com.sandrewtx08.alfresco.base64.dto.AlfrescoCreateNodeChildRequest;
 
 @Service
 public class AlfrescoNodeService {

@@ -1,9 +1,9 @@
-package com.sandrewtx08.alfresco.base64.model;
+package com.sandrewtx08.alfresco.base64.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class AlfrescoCreateNodeChildBase64Request {
     @NotBlank
     private String filedata;
