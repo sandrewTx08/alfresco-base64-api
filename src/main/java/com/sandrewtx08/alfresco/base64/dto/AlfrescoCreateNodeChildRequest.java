@@ -2,6 +2,8 @@ package com.sandrewtx08.alfresco.base64.dto;
 
 import java.util.Map;
 
+import org.springframework.core.io.ByteArrayResource;
+
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,12 +13,11 @@ import lombok.NonNull;
 @AllArgsConstructor
 public class AlfrescoCreateNodeChildRequest {
     @NonNull
-    private byte[] filedata;
+    private ByteArrayResource filedata;
 
     @NotBlank
     private String name;
 
-    @NotBlank
     private String nodeType;
 
     @NotBlank

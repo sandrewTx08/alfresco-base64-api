@@ -32,19 +32,16 @@ public class AlfrescoNodeService {
 
         // File part remains the same
         HttpEntity<ByteArrayResource> filePart = new HttpEntity<>(
-                new ByteArrayResource(request.getFiledata()) {
-                    @Override
-                    public String getFilename() {
-                        return request.getName();
-                    }
-                },
+                request.getFiledata(),
                 createFileHeaders(request.getName()));
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 
         // Add standard fields
-        body.add("name", request.getName());
-        body.add("nodeType", request.getNodeType());
+        if (request.getName() != null)
+            body.add("name", request.getName());
+        if (request.getNodeType() != null)
+            body.add("nodeType", request.getNodeType());
         body.add("filedata", filePart);
         body.add("overwrite", true);
 

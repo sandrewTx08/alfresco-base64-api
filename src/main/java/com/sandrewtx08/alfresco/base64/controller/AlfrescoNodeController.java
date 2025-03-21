@@ -3,6 +3,7 @@ package com.sandrewtx08.alfresco.base64.controller;
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,12 @@ public class AlfrescoNodeController {
     @PostMapping
     public void createNodeChild(@Validated @RequestBody AlfrescoCreateNodeChildBase64Request request) {
         alfrescoNodeService.createNodeChild(new AlfrescoCreateNodeChildRequest(
-                Base64.getDecoder().decode(request.getFiledata()),
+                new ByteArrayResource(Base64.getDecoder().decode(request.getFiledata())) {
+                    @Override
+                    public String getFilename() {
+                        return request.getName();
+                    }
+                },
                 request.getName(),
                 request.getNodeType(),
                 request.getNodeId(),

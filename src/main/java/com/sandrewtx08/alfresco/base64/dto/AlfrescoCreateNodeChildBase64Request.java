@@ -13,7 +13,6 @@ public class AlfrescoCreateNodeChildBase64Request {
     @NotBlank
     private String name;
 
-    @NotBlank
     private String nodeType;
 
     @NotBlank
