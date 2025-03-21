@@ -8,7 +8,7 @@ import lombok.Getter;
 @Component
 @Getter
 public class AlfrescoConfig {
-    @Value("${alfresco.api")
+    @Value("${alfresco.api.url}")
     private String alfrescoApiUrl;
 
     @Value("${alfresco.api.username}")

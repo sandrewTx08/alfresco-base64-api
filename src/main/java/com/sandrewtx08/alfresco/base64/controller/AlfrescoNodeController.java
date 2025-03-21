@@ -23,6 +23,7 @@ public class AlfrescoNodeController {
                 Base64.getDecoder().decode(request.getFiledata()),
                 request.getName(),
                 request.getNodeType(),
-                request.getNodeId()));
+                request.getNodeId(),
+                request.getProperties()));
     }
 }

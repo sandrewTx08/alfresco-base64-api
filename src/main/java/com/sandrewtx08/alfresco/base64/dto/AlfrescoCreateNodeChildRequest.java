@@ -1,5 +1,7 @@
 package com.sandrewtx08.alfresco.base64.dto;
 
+import java.util.Map;
+
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,4 +21,6 @@ public class AlfrescoCreateNodeChildRequest {
 
     @NotBlank
     private String nodeId;
+
+    private Map<String, Object> properties;
 }
