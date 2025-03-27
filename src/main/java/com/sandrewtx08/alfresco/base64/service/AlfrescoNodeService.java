@@ -1,5 +1,7 @@
 package com.sandrewtx08.alfresco.base64.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ContentDisposition;
@@ -13,26 +15,25 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.sandrewtx08.alfresco.base64.AlfrescoConfig;
-import com.sandrewtx08.alfresco.base64.dto.AlfrescoCreateNodeChildRequest;
+import com.sandrewtx08.alfresco.base64.dto.AlfrescoCreateNodeChildBase64Request;
 
 @Service
 public class AlfrescoNodeService {
     @Autowired
-    private AlfrescoConfig alfrescoConfig;
+    private RestTemplate restTemplate;
 
-    public void createNodeChild(AlfrescoCreateNodeChildRequest request) {
-        RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private AlfrescoTagService alfrescoTagService;
 
-        String url = alfrescoConfig.getAlfrescoApiUrl() + "/nodes/" + request.getNodeId() + "/children";
+    public void createNodeChild(AlfrescoCreateNodeChildBase64Request request) {
+        String url = "/nodes/" + request.getNodeId() + "/children";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        headers.setBasicAuth(alfrescoConfig.getUsername(), alfrescoConfig.getPassword());
 
         // File part remains the same
         HttpEntity<ByteArrayResource> filePart = new HttpEntity<>(
-                request.getFiledata(),
+                request.getFiledataByteArrayResource(),
                 createFileHeaders(request.getName()));
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
@@ -46,19 +47,22 @@ public class AlfrescoNodeService {
         body.add("overwrite", true);
 
         // Add properties as individual form fields
-        request.getProperties().forEach((key, value) -> body.add(key, value.toString()));
+        if (request.getProperties() != null)
+            request.getProperties().forEach((key, value) -> body.add(key, value.toString()));
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(
+        ResponseEntity<Object> response = restTemplate.exchange(
                 url,
                 HttpMethod.POST,
                 requestEntity,
-                String.class);
+                Object.class);
 
-        if (!response.getStatusCode().is2xxSuccessful()) {
-            throw new RuntimeException("Failed to create node: " + response.getBody());
-        }
+        Map<String, Object> entry = (Map<String, Object>) ((Map<String, Object>) response.getBody()).get("entry");
+        String nodeId = (String) entry.get("id");
+
+        if (request.getTags() != null && request.getTags().size() > 0)
+            alfrescoTagService.createTag(nodeId, request.getTags());
     }
 
     private HttpHeaders createFileHeaders(String filename) {

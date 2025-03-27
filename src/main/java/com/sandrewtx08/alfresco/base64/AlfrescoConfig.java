@@ -1,11 +1,11 @@
 package com.sandrewtx08.alfresco.base64;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 import lombok.Getter;
 
-@Component
+@Configuration
 @Getter
 public class AlfrescoConfig {
     @Value("${alfresco.api.url}")
