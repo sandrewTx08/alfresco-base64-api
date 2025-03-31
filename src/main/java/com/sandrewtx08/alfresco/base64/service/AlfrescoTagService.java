@@ -25,11 +25,8 @@ public class AlfrescoTagService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         List<AlfrescoCreateTagRequest> tagBody = new ArrayList<>();
 
-        // Create and add each tag
-        for (String tag : tags) {
+        for (String tag : tags)
             tagBody.add(new AlfrescoCreateTagRequest(tag));
-
-        }
 
         HttpEntity<Object> requestEntity = new HttpEntity<>(tagBody, headers);
 
