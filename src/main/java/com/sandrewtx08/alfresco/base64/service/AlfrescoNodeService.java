@@ -39,14 +39,13 @@ public class AlfrescoNodeService {
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 
         // Add standard fields
-        if (request.getName() != null)
-            body.add("name", request.getName());
-        if (request.getNodeType() != null)
+        if (request.getNodeType() != null && !request.getNodeType().isBlank())
             body.add("nodeType", request.getNodeType());
+        if (request.getRelativePath() != null && !request.getRelativePath().isBlank())
+            body.add("relativePath", request.getRelativePath());
         body.add("filedata", filePart);
         body.add("overwrite", true);
 
-        // Add properties as individual form fields
         if (request.getProperties() != null)
             request.getProperties().forEach((key, value) -> body.add(key, value.toString()));
 

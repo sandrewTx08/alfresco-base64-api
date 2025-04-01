@@ -32,6 +32,8 @@ public class AlfrescoCreateNodeChildBase64Request {
 
     private String tagsString;
 
+    private String relativePath;
+
     public List<String> getTags() {
         return tags != null ? tags
                 : List.of(getTagsString().split(";"))
