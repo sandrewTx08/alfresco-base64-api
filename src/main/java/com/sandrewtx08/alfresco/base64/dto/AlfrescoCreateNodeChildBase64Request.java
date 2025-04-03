@@ -4,6 +4,7 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.core.io.ByteArrayResource;
 
@@ -36,8 +37,7 @@ public class AlfrescoCreateNodeChildBase64Request {
 
     public List<String> getTags() {
         return tags != null ? tags
-                : List.of(getTagsString().split(";"))
-                        .stream()
+                : Stream.of(getTagsString().split(";"))
                         .map(tag -> tag.trim().toLowerCase())
                         .collect(Collectors.toList());
     };

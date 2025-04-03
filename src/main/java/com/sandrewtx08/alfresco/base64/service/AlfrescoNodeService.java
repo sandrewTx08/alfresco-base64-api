@@ -47,7 +47,7 @@ public class AlfrescoNodeService {
         body.add("overwrite", true);
 
         if (request.getProperties() != null)
-            request.getProperties().forEach((key, value) -> body.add(key, value.toString()));
+            request.getProperties().forEach((key, value) -> body.add(key, extractPropertieValue(value.toString())));
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
@@ -73,5 +73,15 @@ public class AlfrescoNodeService {
                 .filename(filename)
                 .build());
         return headers;
+    }
+
+    private String extractPropertieValue(String value) {
+        int startIndex = value.indexOf('[');
+        int endIndex = value.indexOf(']');
+
+        if (startIndex != -1 && endIndex != -1 && startIndex < endIndex)
+            return value.substring(startIndex + 1, endIndex);
+
+        return value;
     }
 }
