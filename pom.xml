@@ -12,7 +12,7 @@
 	<groupId>com.sandrewtx08.alfresco</groupId>
 	<artifactId>base64</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>${packaging.type}</packaging>
 	<name>base64</name>
 	<description>Demo project using MongoDB and OAuth 2.0</description>
 	<url />
@@ -29,6 +29,7 @@
 		<url />
 	</scm>
 	<properties>
+		<packaging.type>war</packaging.type>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
