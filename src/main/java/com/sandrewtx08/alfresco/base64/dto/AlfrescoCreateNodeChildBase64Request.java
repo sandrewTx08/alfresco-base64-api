@@ -1,11 +1,11 @@
 package com.sandrewtx08.alfresco.base64.dto;
 
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.core.io.ByteArrayResource;
 
 import jakarta.validation.constraints.NotBlank;
@@ -38,12 +38,12 @@ public class AlfrescoCreateNodeChildBase64Request {
     public List<String> getTags() {
         return tags != null ? tags
                 : Stream.of(getTagsString().split(";"))
-                        .map(tag -> tag.trim().toLowerCase())
-                        .collect(Collectors.toList());
-    };
+                .map(tag -> tag.trim().toLowerCase())
+                .collect(Collectors.toList());
+    }
 
     public ByteArrayResource getFiledataByteArrayResource() {
-        return new ByteArrayResource(Base64.getDecoder().decode(getFiledata())) {
+        return new ByteArrayResource(Base64.decodeBase64(getFiledata())) {
             @Override
             public String getFilename() {
                 return getName() != null && !getName().isBlank() ? getName() : this.getFilename();
