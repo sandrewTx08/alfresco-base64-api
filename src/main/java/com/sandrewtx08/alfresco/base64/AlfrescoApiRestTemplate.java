@@ -1,5 +1,6 @@
 package com.sandrewtx08.alfresco.base64;
 
+import com.sandrewtx08.alfresco.base64.config.AlfrescoConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
