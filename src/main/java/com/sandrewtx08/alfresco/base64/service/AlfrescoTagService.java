@@ -26,7 +26,7 @@ public class AlfrescoTagService {
         }
 
         if (tags == null || tags.isEmpty()) {
-            return null; // Nothing to do
+            return null;
         }
 
         List<AlfrescoCreateTagRequest> tagBody = tags.stream()
@@ -37,7 +37,7 @@ public class AlfrescoTagService {
                 .collect(Collectors.toList());
 
         if (tagBody.isEmpty()) {
-            return null; // No valid tags to send
+            return null;
         }
 
         String tagsEndpoint = "/nodes/" + nodeId + "/tags";

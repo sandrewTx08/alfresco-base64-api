@@ -27,7 +27,6 @@ public class AlfrescoNodeChildService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
-        // Ensure filename is not null/blank
         String safeFilename = request.getName() != null && !request.getName().isBlank()
                 ? request.getName()
                 : "file";
@@ -38,21 +37,17 @@ public class AlfrescoNodeChildService {
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 
-        // Add nodeType if present
         if (request.getNodeType() != null && !request.getNodeType().isBlank()) {
             body.add("nodeType", request.getNodeType());
         }
 
-        // Add relativePath if present
         if (request.getRelativePath() != null && !request.getRelativePath().isBlank()) {
             body.add("relativePath", request.getRelativePath());
         }
 
-        // Add file and overwrite flag
         body.add("filedata", filePart);
         body.add("overwrite", true);
 
-        // Add properties if present and non-null
         if (request.getProperties() != null) {
             request.getProperties().forEach((key, value) -> {
                 if (value != null) {
@@ -79,8 +74,8 @@ public class AlfrescoNodeChildService {
         Map<String, Object> result = new HashMap<>();
         result.put("node", response.getBody());
 
-        // Add tags if present
         List<String> tags = request.getTags();
+
         if (tags != null && !tags.isEmpty()) {
             result.put("tags", alfrescoTagService.createTag(nodeId, tags));
         }

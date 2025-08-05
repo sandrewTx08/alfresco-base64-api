@@ -18,7 +18,6 @@ import java.util.stream.Stream;
 @AllArgsConstructor
 @Schema(description = "Dados para criação de um nó no Alfresco com conteúdo de arquivo codificado em Base64")
 public class AlfrescoCreateNodeChildBase64Request {
-
     @NotBlank
     @Schema(description = "Conteúdo do arquivo em Base64", example = "U29tZSBCYXNlNjQgY29udGVudA==", requiredMode = Schema.RequiredMode.REQUIRED)
     private String filedata;
